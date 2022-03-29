@@ -1,23 +1,22 @@
 package main
 
 import (
-	"log"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 )
 
-func setupTest(t *testing.T) func() {
-	log.Println("Setup Test")
+func setupAndTeardownTest(t *testing.T) func() {
+	t.Log("Setup Test")
 	return func() {
-		log.Println("Teardown Test")
+		t.Log("Teardown Test")
 	}
 }
 
 func TestMultiply(t *testing.T) {
-	t.Cleanup(setupTest(t))
+	t.Cleanup(setupAndTeardownTest(t))
 
-	log.Println("Testing now Multiply")
+	t.Log("Testing now Multiply")
 	res := multiply(3, 3)
 	assert.Equal(t, 9, res)
 }
